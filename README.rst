@@ -3,7 +3,7 @@ lsGeoNetAdj
 ===========
 
 
-Add a short description here!
+Object oriented python implementation for geodetic network adjustment using the least square adjustment Gauss-Markov model.
 
 
 Description
