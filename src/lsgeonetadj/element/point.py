@@ -9,23 +9,18 @@ class Point():
         y (double): y coordinate of point.
         z (double, optional): z coordinate of point, also height of point.
     """
-    def __init__(self, p_id, x, y, z=None):
+    def __init__(self, p_id, x=0, y=0, z=0):
         super(Point, self).__init__()
         self.p_id = p_id
         self.x = float(x)
         self.y = float(y)
-        if z:
-            self.z = float(z)
+        self.z = float(z)
 
     def __eq__(self, other):
-        if self.x == other.x and self.y == other.y:
-            if hasattr(self, 'z') and hasattr(other, 'z'):
-                if self.z == other.z:
-                    return True
-                return False
-            return True
-        return False
+        return self.x == other.x and \
+            self.y == other.y and \
+            self.z == other.z
 
-    def print_point(self):
-        """Docstring"""
-        print("X: " + str(self.x) + ", Y: " + str(self.y) + ", Z: " + str(self.z))
+    def __str__(self):
+        """Representation function"""
+        return 'Point_{}({}, {}, {})'.format(self.p_id, self.x, self.y, self.z)
