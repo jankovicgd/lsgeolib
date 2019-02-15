@@ -50,3 +50,5 @@ MANIFEST
 
 # Other
 .pylintrc
+test_notebooks
+.vscode/

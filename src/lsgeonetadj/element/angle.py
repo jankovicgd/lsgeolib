@@ -11,7 +11,8 @@ class Angle():
         assert isinstance(l2, Line)
         self.l1 = l1
         self.l2 = l2
-        self.m_ang = m_ang
+        if m_ang:
+            self.m_ang = m_ang
 
     def calculate_approximate_angle_direction(self):
         """Docstring"""

@@ -15,7 +15,7 @@ class Line():
         m_dist (double, optional): distance measured, positive
         m_dir (double, optional): direction measured, positive
         m_dh (double, optional): height difference measured
-        m_azi (double, optional): azimuth measured
+        m_azi (double, optional): azimuth measured, positive
     """
     def __init__(self, p1, p2, m_dist=None, m_dir=None, m_dh=None, m_azi=None):
         super(Line, self).__init__()
@@ -23,10 +23,14 @@ class Line():
         assert isinstance(p2, Point)
         self.p1 = p1
         self.p2 = p2
-        self.m_dist = m_dist
-        self.m_dir = m_dir
-        self.m_dh = m_dh
-        self.m_azi = m_azi
+        if m_dist:
+            self.m_dist = float(m_dist)
+        if m_dir:
+            self.m_dir = float(m_dir)
+        if m_dh:
+            self.m_dh = float(m_dh)
+        if m_azi:    
+            self.m_azi = float(m_azi)
         self.dx = p2.x - p1.x
         self.dy = p2.y - p1.y
 
@@ -76,5 +80,5 @@ class Line():
 
     def calculate_approximate_direction(self, avg_orientation):
         """Docstring"""
-
-        return self.calculate_approximate_azimuth() + avg_orientation
+        setattr(self, 'a_dir', self.calculate_approximate_azimuth() + avg_orientation)
+        return self.a_dir # noqa pylint: disable=E1101

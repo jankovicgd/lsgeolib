@@ -3,8 +3,6 @@
 # -*- coding: utf-8 -*-
 
 import math
-import pytest
-from lsgeonetadj.skeleton import fib
 from lsgeonetadj.element.point import Point
 from lsgeonetadj.element.line import Line
 from lsgeonetadj.element.angle import Angle
@@ -14,24 +12,18 @@ __author__ = "jankovic_gd"
 __copyright__ = "jankovic_gd"
 __license__ = "mit"
 
-
-def test_fib():
-    """Docstring"""
-    assert fib(1) == 1
-    assert fib(2) == 1
-    assert fib(7) == 13
-    with pytest.raises(AssertionError):
-        fib(-10)
-
 def test_calculate_approximate_distance():
-    """Docstring"""
+    """Test function for Line.calculate_approximate_distance()"""
     p1 = Point(p_id=1, x=10.0, y=20.0)
     p2 = Point(p_id=2, x=20.0, y=10.0)
     l1 = Line(p1, p2)
     assert l1.calculate_approximate_distance() == 10 * math.sqrt(2)
+    # error when impossible to calculate distance
+    # with pytest.raises(AssertionError):
+    #     l1.calculateDistance()
 
 def test_calculate_approximate_angle():
-    """Docstring"""
+    """Test function for Angle.calculate_approximate_angle()"""
     p1 = Point(p_id=1, x=10.0, y=20.0)
     p2 = Point(p_id=2, x=20.0, y=10.0)
     p3 = Point(p_id=3, x=30.0, y=30.0)
@@ -41,7 +33,7 @@ def test_calculate_approximate_angle():
     assert a1.calculate_approximate_angle_direction() == 20
 
 def test_calculate_approximate_azimuth():
-    """Docstring"""
+    """Test function for Line.calculate_approximate_azimuth()"""
     p1 = Point(p_id=1, x=10.0, y=10.0)
     p2 = Point(p_id=2, x=20.0, y=20.0)
     p3 = Point(p_id=3, x=30.0, y=10.0)
@@ -55,15 +47,17 @@ def test_calculate_approximate_azimuth():
     assert l4.calculate_approximate_azimuth() == 315.0
 
 def test_points_equal():
-    """Docstring"""
+    """Test function for Point.__eq__()"""
     p1 = Point(p_id=1, x=10.0, y=10.0)
     p2 = Point(p_id=2, x=10.0, y=10.0)
     p3 = Point(p_id=3, x=20.0, y=10.0)
+    p4 = Point(p_id=4, x=10.0, y=10.0, z=10.0)
     assert p1.__eq__(p2)
     assert not p1.__eq__(p3)
+    assert p4.__eq__(p4)
 
 def test_calculate_approximate_angle_azimuth():
-    """Docstring"""
+    """Test function for Angle().calculate_approximate_angle_azimuth"""
     p1 = Point(p_id=1, x=20.0, y=20.0)
     p2 = Point(p_id=2, x=10.0, y=10.0)
     p3 = Point(p_id=3, x=20.0, y=10.0)
