@@ -17,20 +17,16 @@ class Line():
         m_dh (double, optional): height difference measured
         m_azi (double, optional): azimuth measured, positive
     """
-    def __init__(self, p1, p2, m_dist=None, m_dir=None, m_dh=None, m_azi=None):
+    def __init__(self, p1, p2, m_dist=0.0, m_dir=0.0, m_dh=0.0, m_azi=0.0):
         super(Line, self).__init__()
         assert isinstance(p1, Point)
         assert isinstance(p2, Point)
         self.p1 = p1
         self.p2 = p2
-        if m_dist:
-            self.m_dist = float(m_dist)
-        if m_dir:
-            self.m_dir = float(m_dir)
-        if m_dh:
-            self.m_dh = float(m_dh)
-        if m_azi:    
-            self.m_azi = float(m_azi)
+        self.m_dist = float(m_dist)
+        self.m_dir = float(m_dir)
+        self.m_dh = float(m_dh)
+        self.m_azi = float(m_azi)
         self.dx = p2.x - p1.x
         self.dy = p2.y - p1.y
 
@@ -43,26 +39,21 @@ class Line():
         """Docstring"""
         if self.dx > 0 > self.dy:
             setattr(self, 'a_azi', math.degrees(math.atan(self.dx/self.dy)) + 180)
-            return self.a_azi # noqa pylint: disable=E1101
         if self.dx < 0 > self.dy:
             setattr(self, 'a_azi', math.degrees(math.atan(self.dx/self.dy)) + 180)
-            return self.a_azi # noqa pylint: disable=E1101
         if self.dx < 0 < self.dy:
             setattr(self, 'a_azi', math.degrees(math.atan(self.dx/self.dy)) + 360)
-            return self.a_azi # noqa pylint: disable=E1101
         if self.dy == 0 < self.dx:
             setattr(self, 'a_azi', 90)
-            return self.a_azi # noqa pylint: disable=E1101
         if self.dy == 0 > self.dx:
             setattr(self, 'a_azi', 270)
-            return self.a_azi # noqa pylint: disable=E1101
         if self.dx == 0 > self.dy:
             setattr(self, 'a_azi', 180)
-            return self.a_azi # noqa pylint: disable=E1101
         if self.dx == 0 < self.dy:
             setattr(self, 'a_azi', 0)
-            return self.a_azi # noqa pylint: disable=E1101
-        return math.degrees(math.atan(self.dx/self.dy))
+        if self.dx > 0 < self.dy:
+            setattr(self, 'a_azi', math.degrees(math.atan(self.dx/self.dy)))
+        return self.a_azi # noqa pylint: disable=E1101
 
     def calculate_approximate_height_difference(self):
         """Docstring"""
@@ -79,6 +70,11 @@ class Line():
         return self.ori # noqa pylint: disable=E1101
 
     def calculate_approximate_direction(self, avg_orientation):
-        """Docstring"""
+        """Computes the approximate direction using the average orientation
+        and approximate azimuth"""
         setattr(self, 'a_dir', self.calculate_approximate_azimuth() + avg_orientation)
         return self.a_dir # noqa pylint: disable=E1101
+
+    def __str__(self):
+        """Representation function"""
+        return 'Line_{}-{}'.format(self.p1.p_id, self.p2.p_id)

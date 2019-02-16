@@ -1,0 +1,62 @@
+points:
+  p1:
+    x: 1593.816
+    y: 2047.144
+    state: fixed
+  p2:
+    x: 2047.295
+    y: 2726.799
+    state: fixed
+  p3:
+    x: 2500.726
+    y: 2047.113
+    state: fixed
+  p4:
+    x: 2047.248
+    y: 1367.459
+    state: fixed
+  T0:
+    x: 2047.271
+    y: 1367.459
+    state: approximate
+measurements:
+  directions:
+    dir1:
+      from: T0
+      to: 1
+      value: 0.0
+    dir2:
+      from: T0
+      to: 2
+      value: 90.000833
+    dir3:
+      from: T0
+      to: 3
+      value: 179.9975
+    dir4:
+      from: T0
+      to: 4
+      value: 270.000833
+  distances:
+    dist1:
+      from: T0
+      to: 1
+      value: 453.446
+    dist2:
+      from: T0
+      to: 2
+      value: 679.682
+    dist3:
+      from: T0
+      to: 3
+      value: 453.452
+    dist4:
+      from: T0
+      to: 4
+      value: 679.642
+standards:
+  directions:
+    angular_seconds: 3
+  distances:
+    fixed_mm: 5
+    ppm: 5

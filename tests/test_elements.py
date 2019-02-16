@@ -49,7 +49,6 @@ def test_calculate_approximate_azimuth():
 def test_points_equal():
     """Test function for Point.__eq__()"""
     p1 = Point(p_id=1, x=10.0, y=10.0)
-    p1
     p2 = Point(p_id=2, x=10.0, y=10.0)
     p3 = Point(p_id=3, x=20.0, y=10.0)
     p4 = Point(p_id=4, x=10.0, y=10.0, z=10.0)

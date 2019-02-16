@@ -1,6 +1,5 @@
 """Module docstring"""
 
-import math
 from lsgeonetadj.element.line import Line
 
 class Angle():
