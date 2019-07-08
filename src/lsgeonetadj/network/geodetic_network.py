@@ -16,9 +16,11 @@ class GeodeticNetwork():
         self.__read_yml(yml_path)
         columns, index = self.__set_headers()
         self.A = pd.DataFrame(columns=columns, index=index)
-        self.f = pd.Series()
+        self.f = pd.Series(name='f')
 
     def __set_headers(self):
+        """Sets the headers to unknown params and index
+        to measurements"""
         columns = []
         for point in self.points:
             if self.points[point]['state'] == 'approximate':
@@ -52,10 +54,10 @@ class GeodeticNetwork():
         #     angle_eq()
         # if self.measurements['oriented_angles']:
         #     oriented_angle_eq()
-        # if self.measurements['distances']:
-        #     for distance in self.measurements['distances']:
-        #         a_ij, b_ij, a_ji, b_ji, f = distance_eq()
-        #         self.A.update({distance: [a_ij, b_ij, a_ji, b_ji]})
+        if self.measurements['distances']:
+            for distance in self.measurements['distances']:
+                a_ij, b_ij, a_ji, b_ji, f = distance_eq()
+                self.A.update({distance: [a_ij, b_ij, a_ji, b_ji]})
         # if self.measurements['height_difs']:
         #     height_dif_eq()
         pass
