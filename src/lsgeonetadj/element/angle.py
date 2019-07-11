@@ -1,10 +1,12 @@
 """Module docstring"""
 
-from lsgeonetadj.element.line import Line
+from lsgeonetadj.element import Line
+
 
 class Angle():
     """docstring for Angle."""
-    def __init__(self, l1, l2, m_ang=None):
+
+    def __init__(self, l1: Line, l2: Line, m_ang: float = None):
         super(Angle, self).__init__()
         assert isinstance(l1, Line)
         assert isinstance(l2, Line)
@@ -20,5 +22,6 @@ class Angle():
 
     def calculate_approximate_angle_azimuth(self):
         """Docstring"""
-        assert self.l2.calculate_approximate_azimuth() > self.l1.calculate_approximate_azimuth()
+        assert self.l2.calculate_approximate_azimuth(
+        ) > self.l1.calculate_approximate_azimuth()
         return self.l2.calculate_approximate_azimuth() - self.l1.calculate_approximate_azimuth()
