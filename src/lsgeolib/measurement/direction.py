@@ -9,15 +9,29 @@ class Direction(Measurement):
         self.orientation_angle = None
         self.approximate_azimuth = None
 
-    def calculate_approximate(self) -> float:
+    @property
+    def measured(self):
+        return self._measured
+
+    @measured.setter
+    def measured(self, value):
+        if value < 0:
+            raise ValueError("Direction measurements cannot be negative")
+
+        self._measured = float(value)
+
+    def calculate_approximate(self, **kwargs) -> float:
         """Computes the approximate direction using the average orientation
         and approximate azimuth"""
-        # average_orientation = average_orientation()
-        self.approximate = self.calculate_approximate_azimuth()  # + average_orientation
+        average_orientation = kwargs["average_orientation"]
+        self.approximate = self.calculate_approximate_azimuth() + average_orientation
         return self.approximate
 
-    def calculate_adjusted(self):
+    def calculate_adjusted(self) -> float:
         pass
+
+    def calculate_free_value(self) -> float:
+        self.free_value = self.approximate - self.measured
 
     def calculate_approximate_azimuth(self) -> float:
         if self.dx > 0 > self.dy:
@@ -48,13 +62,5 @@ class Direction(Measurement):
         self.orientation_angle = orientation_angle
         return self.orientation_angle
 
-    @property
-    def measured(self):
-        return self._measured
-
-    @measured.setter
-    def measured(self, value):
-        if value < 0:
-            raise ValueError("Direction measurements cannot be negative")
-
-        self._measured = float(value)
+    def calculate_derrivative_coefficients(self):
+        pass

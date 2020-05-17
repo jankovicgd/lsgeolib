@@ -1,5 +1,6 @@
 from .point import Point
 from abc import abstractmethod, abstractproperty, ABCMeta
+from typing import Type, Dict
 
 
 class Measurement(object):
@@ -7,17 +8,23 @@ class Measurement(object):
 
     def __init__(
         self,
-        point_from: Point,
-        point_to: Point,
+        point_from: Type[Point],
+        point_to: Type[Point],
         measured: float,
-        point_base: Point = None,
+        point_base: Type[Point] = None,
     ):
+        # Known values
         self.point_from = point_from
         self.point_to = point_to
         self.measured = measured
         self.point_base = point_base
+
+        # Computed values
         self.approximate = None
         self.adjusted = None
+        self.free_value = None
+        self.derivative_coefficients = dict()
+
         if not point_base:
             self.dx = point_to.x - point_from.x
             self.dy = point_to.y - point_from.y
@@ -34,11 +41,19 @@ class Measurement(object):
         raise NotImplementedError
 
     @abstractmethod
-    def calculate_approximate(self):
+    def calculate_approximate(self, **kwargs) -> float:
         raise NotImplementedError
 
     @abstractmethod
-    def calculate_adjusted(self):
+    def calculate_adjusted(self) -> float:
+        raise NotImplementedError
+
+    @abstractmethod
+    def calculate_free_value(self) -> float:
+        raise NotImplementedError
+
+    @abstractmethod
+    def calculate_derrivative_coefficients(self) -> Dict[str, float]:
         raise NotImplementedError
 
     # def __eq__(self, other: Point) -> bool:
