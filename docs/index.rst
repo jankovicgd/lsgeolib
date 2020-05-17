@@ -1,8 +1,8 @@
 ===========
-lsGeoNetAdj
+lsgeolib
 ===========
 
-This is the documentation of **lsGeoNetAdj**.
+This is the documentation of **lsgeolib**.
 
 .. note::
 

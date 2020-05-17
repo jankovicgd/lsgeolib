@@ -2,9 +2,9 @@
 import yaml
 import pandas as pd
 
-from lsgeonetadj.model.functional import direction_eq, \
+from lsgeolib.model.functional import direction_eq, \
     angle_eq, oriented_angle_eq, distance_eq, height_dif_eq
-from lsgeonetadj.network.utils import check_directions
+from lsgeolib.network.utils import check_directions
 
 class GeodeticNetwork():
     """docstring for GeodeticNetwork."""

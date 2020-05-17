@@ -8,8 +8,8 @@ PAPER         =
 BUILDDIR      = _build
 AUTODOCDIR    = api
 AUTODOCBUILD  = sphinx-apidoc
-PROJECT       = lsGeoNetAdj
-MODULEDIR     = ../src/lsgeonetadj
+PROJECT       = lsgeolib
+MODULEDIR     = ../src/lsgeolib
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $?), 1)

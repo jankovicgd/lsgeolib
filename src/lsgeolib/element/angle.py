@@ -1,6 +1,6 @@
 """Module docstring"""
 
-from lsgeonetadj.element import Line
+from lsgeolib.element import Line
 
 
 class Angle():

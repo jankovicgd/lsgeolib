@@ -1,7 +1,7 @@
 """Module Docstring"""
 
 import math
-from lsgeonetadj.element import Point
+from lsgeolib.element import Point
 
 
 class Line():

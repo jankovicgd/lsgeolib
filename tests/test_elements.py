@@ -3,9 +3,9 @@
 # -*- coding: utf-8 -*-
 
 import math
-from lsgeonetadj.element.point import Point
-from lsgeonetadj.element.line import Line
-from lsgeonetadj.element.angle import Angle
+from lsgeolib.element.point import Point
+from lsgeolib.element.line import Line
+from lsgeolib.element.angle import Angle
 
 
 __author__ = "jankovic_gd"
