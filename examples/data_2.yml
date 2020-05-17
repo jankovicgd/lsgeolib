@@ -9,24 +9,24 @@ points:
     z: 100.012
     state: fixed
 measurements:
-  height_difs:
-    h1:
-      from: R1
+  height_differences:
+    - from: R1
       to: R2
       value: 1.024
-    h2:
-      from: R2
+    - from: R2
       to: R3
       value: 40.846
-    h3:
-      from: R1
+    - from: R1
       to: R3
       value: 41.879
 standards:
-  height_difs_no_stations:
-    n11:
-      value: 10
-    n22:
-      value: 21
-    n3:
-      value: 29
+  number_of_measurements_between_points:
+    - from: R1
+      to: R2
+      number_of_measurements: 10
+    - from: R1
+      to: R2
+      number_of_measurements: 21
+    - from: R1
+      to: R2
+      number_of_measurements: 29

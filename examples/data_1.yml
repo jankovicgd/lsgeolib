@@ -20,40 +20,38 @@ points:
     y: 1367.459
     state: approximate
 measurements:
-  directions:
-    dir1:
-      from: T0
-      to: 1
-      value: 0.0
-    dir2:
-      from: T0
-      to: 2
-      value: 90.000833
-    dir3:
-      from: T0
-      to: 3
-      value: 179.9975
-    dir4:
-      from: T0
-      to: 4
-      value: 270.000833
-  distances:
-    dist1:
-      from: T0
-      to: 1
-      value: 453.446
-    dist2:
-      from: T0
-      to: 2
-      value: 679.682
-    dist3:
-      from: T0
-      to: 3
-      value: 453.452
-    dist4:
-      from: T0
-      to: 4
-      value: 679.642
+  - type: direction
+    from: T0
+    to: p1
+    value: 0.0
+  - type: direction
+    from: T0
+    to: p2
+    value: 90.000833
+  - type: direction
+    from: T0
+    to: p3
+    value: 179.9975
+  - type: direction
+    from: T0
+    to: p4
+    value: 270.000833
+  - type: distance
+    from: T0
+    to: p1
+    value: 453.446
+  - type: distance
+    from: T0
+    to: p2
+    value: 679.682
+  - type: distance
+    from: T0
+    to: p3
+    value: 453.452
+  - type: distance
+    from: T0
+    to: p4
+    value: 679.642
 standards:
   directions:
     angular_seconds: 3
