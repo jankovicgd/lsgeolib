@@ -4,3 +4,4 @@ from .direction import Direction
 from .height_difference import HeightDifference
 from .angle import Angle
 from .orientation_direction import OrientationDirection
+from .utils import OrientationAngle

@@ -4,8 +4,10 @@ from typing import Type, Dict
 
 
 class Measurement(object):
+
     __metaclass__ = ABCMeta
 
+    @abstractmethod
     def __init__(
         self,
         point_from: Type[Point],
@@ -20,10 +22,10 @@ class Measurement(object):
         self.point_base = point_base
 
         # Computed values
-        self.approximate = None
-        self.adjusted = None
-        self.free_value = None
-        self.derivative_coefficients = dict()
+        self.approximate: float = None
+        self.adjusted: float = None
+        self.free_value: float = None
+        self.coefficients = dict()
 
         if not point_base:
             self.dx = point_to.x - point_from.x
@@ -41,7 +43,7 @@ class Measurement(object):
         raise NotImplementedError
 
     @abstractmethod
-    def calculate_approximate(self, **kwargs) -> float:
+    def calculate_approximate(self, *args, **kwargs) -> float:
         raise NotImplementedError
 
     @abstractmethod
@@ -53,7 +55,7 @@ class Measurement(object):
         raise NotImplementedError
 
     @abstractmethod
-    def calculate_derrivative_coefficients(self) -> Dict[str, float]:
+    def calculate_coefficients(self) -> Dict[str, float]:
         raise NotImplementedError
 
     # def __eq__(self, other: Point) -> bool:

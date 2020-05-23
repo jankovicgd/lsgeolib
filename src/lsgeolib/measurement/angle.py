@@ -1,18 +1,42 @@
-"""Module docstring"""
+from typing import Type, Dict
+
+from .measurement import Measurement
+from .point import Point
 
 
-class Angle:
-    pass
-    # """docstring for Angle."""
+class Angle(Measurement):
+    def __init__(
+        self,
+        point_from: Type[Point],
+        point_to: Type[Point],
+        point_base: Type[Point],
+        measured: float,
+    ):
+        super(Angle).__init__(point_from, point_to, measured, point_base)
 
-    # def __init__(self, l1: Line, l2: Line, m_ang: float = None):
-    #     super(Angle, self).__init__()
-    #     assert isinstance(l1, Line)
-    #     assert isinstance(l2, Line)
-    #     self.l1 = l1
-    #     self.l2 = l2
-    #     if m_ang:
-    #         self.m_ang = m_ang
+    @property
+    def measured(self):
+        return self._measured
+
+    @measured.setter
+    def measured(self, value):
+        # TODO add possibility for converting DMS to float
+        if value < 0:
+            raise ValueError("Angle measurements cannot be negative")
+
+        self._measured = float(value)
+
+    def calculate_approximate(self, *args, **kwargs) -> float:
+        pass
+
+    def calculate_adjusted(self) -> float:
+        pass
+
+    def calculate_coefficients(self) -> Dict[str, float]:
+        pass
+
+    def calculate_free_parameter(self) -> float:
+        pass
 
     # def calculate_approximate_angle_from_direction(self):
     #     """Docstring"""

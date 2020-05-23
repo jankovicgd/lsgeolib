@@ -8,10 +8,10 @@ class Point:
      * approximate - coordinates of the point are an unknown and will be adjusted
 
     Attributes:
-        p_id (str): id of the point.
-        x (double): x coordinate of point.
-        y (double): y coordinate of point.
-        z (double, optional): z coordinate of point, also height of point.
+        identifier (str): identifier of the point.
+        x (float): x coordinate of point.
+        y (float): y coordinate of point.
+        z (float, optional): z coordinate of point, also height of point.
     """
 
     def __init__(
@@ -23,7 +23,7 @@ class Point:
         self.z = float(z)
 
     def __repr__(self):
-        return f"Point_{self.id}(x: {self.x}, y: {self.y}, z: {self.z})"
+        return f"{type(self).__name__}_{self.id}(x: {self.x}, y: {self.y}, z: {self.z})"
 
 
 class FixedPoint(Point):
