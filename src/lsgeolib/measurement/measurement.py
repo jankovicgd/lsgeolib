@@ -1,4 +1,4 @@
-from .point import Point
+from .point import Point, FixedPoint
 from abc import abstractmethod, abstractproperty, ABCMeta
 from typing import Type, Dict
 
@@ -34,9 +34,11 @@ class Measurement(object):
     def __repr__(self) -> str:
         """Representation function for measurements"""
         if not self.point_base:
-            return f"{type(self).__name__}_{self.point_from.id}-{self.point_to.id}({self.measured})"
+            return f"{type(self).__name__}_{self.point_from.id}-\
+                {self.point_to.id}({self.measured})"
 
-        return f"{type(self).__name__}_{self.point_from.id}-{self.point_base.id}-{self.point_to.id}({self.measured})"
+        return f"{type(self).__name__}_{self.point_from.id}-\
+            {self.point_base.id}-{self.point_to.id}({self.measured})"
 
     @abstractproperty
     def measured(self):
@@ -58,5 +60,12 @@ class Measurement(object):
     def calculate_coefficients(self) -> Dict[str, float]:
         raise NotImplementedError
 
-    # def __eq__(self, other: Point) -> bool:
-    #     return self.x == other.x and self.y == other.y and self.z == other.z
+    def pop_coefficients(self) -> None:
+        for point in [self.point_base, self.point_from, self.point_to]:
+            if isinstance(point, FixedPoint):
+                try:
+                    self.coefficients.pop(f"a_{point.id}")
+                    self.coefficients.pop(f"b_{point.id}")
+                    self.coefficients.pop(f"z_{point.id}")
+                except KeyError:
+                    pass

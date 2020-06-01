@@ -1,9 +1,19 @@
-from .point import Point
+from .point import Point, ApproximatePoint, FixedPoint
 from .measurement import Measurement
 from typing import Type, Dict
 
 
 class HeightDifference(Measurement):
+    """Measurement where the difference in height is measured between two points
+
+    [extended_summary]
+
+    Attributes:
+        point_from (Point): Point from which the measurement is taken.
+        point_to (Point): Point to which the measurement is taken.
+        measured (float): Measured height difference
+    """
+
     def __init__(
         self, point_from: Type[Point], point_to: Type[Point], measured: float,
     ):
@@ -32,6 +42,10 @@ class HeightDifference(Measurement):
             f"a_{self.point_from.id}_{self.point_to.id}": a_from_to,
             f"a_{self.point_to.id}_{self.point_from.id}": a_to_from,
         }
+
+        self.pop_coefficients()
+
+        return self.coefficients
 
     def calculate_free_value(self) -> float:
         self.free_value = self.approximate - self.measured

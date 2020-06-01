@@ -7,6 +7,15 @@ from .utils import Azimuth, OrientationAngle
 
 
 class Direction(Measurement):
+    """Direction class that represents a measurement of a direction read while measuring
+    a point.
+
+    Attributes:
+        point_from (Point): Point from which the measurement is taken.
+        point_to (Point): Point to which the measurement is taken.
+        measured (float): Measured direction
+    """
+
     def __init__(self, point_from: Type[Point], point_to: Type[Point], measured: float):
         super().__init__(point_from, point_to, measured)
         self._orientation_angle: OrientationAngle = None
@@ -75,41 +84,15 @@ class Direction(Measurement):
         b_to_from = -b_from_to
         z_coef = 1
 
-        if isinstance(self.point_from, ApproximatePoint) and isinstance(
-            self.point_to, ApproximatePoint
-        ):
-            self.coefficients = {
-                f"a_{self.point_from.id}_{self.point_to.id}": a_from_to,
-                f"a_{self.point_to.id}_{self.point_from.id}": a_to_from,
-                f"b_{self.point_from.id}_{self.point_to.id}": b_from_to,
-                f"b_{self.point_to.id}_{self.point_from.id}": b_to_from,
-                f"z_{self.point_from.id}": z_coef,
-            }
+        self.coefficients = {
+            f"a_{self.point_from.id}": a_from_to,
+            f"b_{self.point_from.id}": b_from_to,
+            f"z_{self.point_from.id}": z_coef,
+            f"a_{self.point_to.id}": a_to_from,
+            f"b_{self.point_to.id}": b_to_from,
+            f"z_{self.point_to.id}": z_coef,
+        }
 
-        if isinstance(self.point_from, ApproximatePoint) and isinstance(
-            self.point_to, FixedPoint
-        ):
-            self.coefficients = {
-                f"a_{self.point_from.id}_{self.point_to.id}": a_from_to,
-                f"b_{self.point_from.id}_{self.point_to.id}": b_from_to,
-                f"z_{self.point_from.id}": z_coef,
-            }
-
-        if isinstance(self.point_from, FixedPoint) and isinstance(
-            self.point_to, ApproximatePoint
-        ):
-            self.coefficients = {
-                f"a_{self.point_to.id}_{self.point_from.id}": a_to_from,
-                f"b_{self.point_to.id}_{self.point_from.id}": b_to_from,
-                f"z_{self.point_from.id}": z_coef,
-            }
-
-        if isinstance(self.point_from, FixedPoint) and isinstance(
-            self.point_to, FixedPoint
-        ):
-            self.coefficients = {
-                f"z_{self.point_from.id}": z_coef,
-                f"z_{self.point_to.iz}": z_coef,
-            }
+        self.pop_coefficients()
 
         return self.coefficients

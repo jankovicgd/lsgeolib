@@ -1,19 +1,21 @@
 import math
-from .point import Point
+from .point import Point, ApproximatePoint, FixedPoint
 from .measurement import Measurement
+
+from typing import Type, Dict
 
 
 class Distance(Measurement):
     """Distance class that represents a measurement of length between two points.
 
     Attributes:
-        pont_from (Point): Point from which the measurement is taken.
-        pont_to (Point): Point to which the measurement is taken.
+        point_from (Point): Point from which the measurement is taken.
+        point_to (Point): Point to which the measurement is taken.
         measured (float): Measured distance
     """
 
     def __init__(
-        self, point_from: Point, point_to: Point, measured: float,
+        self, point_from: Type[Point], point_to: Type[Point], measured: float,
     ):
         super().__init__(point_from, point_to, measured)
 
@@ -39,17 +41,19 @@ class Distance(Measurement):
         self.free_value = self.approximate - self.measured
         return self.free_value
 
-    def calculate_coefficients(self) -> dict:
-        a_from_to = -(self.point_from.x - self.point_to.x) / self.approximate
+    def calculate_coefficients(self) -> Dict[str, float]:
+        a_from_to = -(self.point_to.x - self.point_from.x) / self.approximate
         a_to_from = -a_from_to
-        b_from_to = -(self.point_from.y - self.point_to.y) / self.approximate
+        b_from_to = -(self.point_to.y - self.point_from.y) / self.approximate
         b_to_from = -b_from_to
 
         self.coefficients = {
-            f"a_{self.point_from.id}_{self.point_to.id}": a_from_to,
-            f"a_{self.point_to.id}_{self.point_from.id}": a_to_from,
-            f"b_{self.point_from.id}_{self.point_to.id}": b_from_to,
-            f"b_{self.point_to.id}_{self.point_from.id}": b_to_from,
+            f"a_{self.point_from.id}": a_from_to,
+            f"b_{self.point_from.id}": b_from_to,
+            f"a_{self.point_to.id}": a_to_from,
+            f"b_{self.point_to.id}": b_to_from,
         }
+
+        self.pop_coefficients()
 
         return self.coefficients
