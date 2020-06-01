@@ -47,8 +47,10 @@ MANIFEST
 
 # Per-project virtualenvs
 .venv*/
+venv/
 
 # Other
 .pylintrc
 test_notebooks
 .vscode/
+testing/
