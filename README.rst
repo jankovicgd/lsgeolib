@@ -2,7 +2,7 @@
 lsgeolib
 ===========
 
-![Python package](https://github.com/jankovicgd/lsgeolib/workflows/Python%20package/badge.svg)
+.. image:: https://github.com/jankovicgd/lsgeolib/workflows/Python%20package/badge.svg)
 
 Python library for geodetic network adjustment using the least square adjustment defined by the Gauss-Markov model.
 
