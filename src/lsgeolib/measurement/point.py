@@ -1,35 +1,45 @@
-"""Module that contains the Point class and its relevant methods"""
+"""
+point.py
+=========
+
+Module that contains the Point classes
+
+"""
+
+from abc import ABC
+from enum import Enum, auto
 
 
-class Point:
-    """Point class that represents a 0 dimensional entity with 3 spatial coordinates.
-    In least square terms each point can be:
-     * fixed - coordinates of the point cannot change
-     * approximate - coordinates of the point are an unknown and will be adjusted
-
-    Attributes:
-        identifier (str): identifier of the point.
-        x (float): x coordinate of point.
-        y (float): y coordinate of point.
-        z (float, optional): z coordinate of point, also height of point.
-    """
-
-    def __init__(
-        self, identifier: str, x: float = 0.0, y: float = 0.0, z: float = 0.0,
-    ):
-        self.id = str(identifier)
-        self.x = float(x)
-        self.y = float(y)
-        self.z = float(z)
-
-    def __repr__(self):
-        return f"{type(self).__name__}_{self.id}(x: {self.x}, y: {self.y}, z: {self.z})"
+class PointType(Enum):
+    APPROXIMATE = auto()
+    FIXED = auto()
 
 
-class FixedPoint(Point):
-    pass
+class Point(ABC):
+    def __init__(self, identifier: str, point_type: PointType):
+        self.identifier = identifier
+        self.point_type = point_type
+
+    def __repr__(self) -> str:
+        return f"{self.point_type.name}_Point_{self.identifier}"
 
 
-class ApproximatePoint(Point):
-    def calculate_adjusted_coordinates(self):
-        pass
+class OneDimensionalPoint(Point):
+    def __init__(self, identifier: str, point_type: PointType, z: float):
+        super().__init__(identifier, point_type)
+        self.z = z
+
+    def __repr__(self) -> str:
+        sub = super().__repr__()
+        return f"{sub}(z: {self.z})"
+
+
+class TwoDimensionalPoint(Point):
+    def __init__(self, identifier: str, point_type: PointType, x: float, y: float):
+        super().__init__(identifier, point_type)
+        self.x = x
+        self.y = y
+
+    def __repr__(self) -> str:
+        sub = super().__repr__()
+        return f"{sub}(x: {self.x}, y: {self.y})"

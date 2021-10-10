@@ -1,59 +1,75 @@
-import math
-from .point import Point, ApproximatePoint, FixedPoint
-from .measurement import Measurement
+"""
+distance.py
+============
 
-from typing import Type, Dict
+Contains class for distance measurement
+"""
+
+import math
+from typing import Tuple, Dict
+
+from .point import TwoDimensionalPoint, PointType, Point
+from .measurement import Measurement
 
 
 class Distance(Measurement):
     """Distance class that represents a measurement of length between two points.
 
     Attributes:
-        point_from (Point): Point from which the measurement is taken.
-        point_to (Point): Point to which the measurement is taken.
+        point_from (TwoDimensionalPoint): Point from which the measurement is taken.
+        point_to (TwoDimensionalPoint): Point to which the measurement is taken.
         measured (float): Measured distance
     """
 
     def __init__(
-        self, point_from: Type[Point], point_to: Type[Point], measured: float,
+        self,
+        point_from: TwoDimensionalPoint,
+        point_to: TwoDimensionalPoint,
+        measured: float,
     ):
-        super().__init__(point_from, point_to, measured)
+        self.point_from = point_from
+        self.point_to = point_to
+
+        super().__init__(measured)
 
     @property
-    def measured(self):
+    def measured(self) -> float:
         return self._measured
 
     @measured.setter
-    def measured(self, value):
+    def measured(self, value: float) -> None:
         if value < 0:
-            raise ValueError("Distance measurements cannot be negative")
+            raise ValueError(f"Distance measured: {value}, cannot be negative")
 
-        self._measured = float(value)
+        self._measured = value
 
-    def calculate_approximate(self, *args, **kwargs) -> float:
-        self.approximate = math.sqrt(self.dx ** 2 + self.dy ** 2)
-        return self.approximate
+    @property
+    def approximate(self) -> float:
+        dx = self.point_to.x - self.point_from.x
+        dy = self.point_to.y - self.point_from.y
+        return math.sqrt(dx ** 2 + dy ** 2)
 
-    def calculate_adjusted(self) -> float:
+    @property
+    def adjusted(self) -> float:
         pass
 
-    def calculate_free_value(self) -> float:
-        self.free_value = self.approximate - self.measured
-        return self.free_value
+    @property
+    def free_value(self) -> float:
+        return self.approximate - self.measured
 
-    def calculate_coefficients(self) -> Dict[str, float]:
+    @property
+    def coefficients(self) -> Dict[Tuple[str, Point], float]:
         a_from_to = -(self.point_to.x - self.point_from.x) / self.approximate
         a_to_from = -a_from_to
         b_from_to = -(self.point_to.y - self.point_from.y) / self.approximate
         b_to_from = -b_from_to
 
-        self.coefficients = {
-            f"a_{self.point_from.id}": a_from_to,
-            f"b_{self.point_from.id}": b_from_to,
-            f"a_{self.point_to.id}": a_to_from,
-            f"b_{self.point_to.id}": b_to_from,
-        }
+        coefficients: Dict[Tuple[str, Point], float] = {}
+        if self.point_from.point_type == PointType.APPROXIMATE:
+            coefficients[("a", self.point_from)] = a_from_to
+            coefficients[("b", self.point_from)] = b_from_to
+        if self.point_to.point_type == PointType.APPROXIMATE:
+            coefficients[("a", self.point_to)] = a_to_from
+            coefficients[("b", self.point_to)] = b_to_from
 
-        self.pop_coefficients()
-
-        return self.coefficients
+        return coefficients

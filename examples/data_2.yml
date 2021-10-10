@@ -1,13 +1,13 @@
 points:
   R1:
     z: 58.133
-    state: approximate
+    type: approximate
   R2:
     z: 59.166
-    state: approximate
+    type: approximate
   R3:
     z: 100.012
-    state: fixed
+    type: fixed
 measurements:
   height_differences:
     - from: R1

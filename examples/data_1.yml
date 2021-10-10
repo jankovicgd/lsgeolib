@@ -2,23 +2,23 @@ points:
   p1:
     x: 1593.816
     y: 2047.144
-    state: fixed
+    type: fixed
   p2:
     x: 2047.295
     y: 2726.799
-    state: fixed
+    type: fixed
   p3:
     x: 2500.726
     y: 2047.113
-    state: fixed
+    type: fixed
   p4:
     x: 2047.248
     y: 1367.459
-    state: fixed
+    type: fixed
   T0:
     x: 2047.271
     y: 1367.459
-    state: approximate
+    type: approximate
 measurements:
   - type: direction
     from: T0

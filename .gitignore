@@ -54,3 +54,5 @@ venv/
 test_notebooks
 .vscode/
 testing/
+.ipynb_checkpoints/
+script.py

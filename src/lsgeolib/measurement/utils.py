@@ -1,46 +1,57 @@
+"""
+utils.py
+=========
+
+Contains useful utility classes and methods
+
+"""
+
 import math
-from typing import Type
+from typing import List
 
-from .point import Point
+from .point import TwoDimensionalPoint
 
 
-class OrientationAngle:
-    def __init__(self):
-        self._orientation_angles = []
-        self.average_orientation_angle = 0.0
+class OrientationAngles:
+    def __init__(self) -> None:
+        self.orientation_angles: List[float] = []
 
-    def add_orientation_angle(self, orientation_angle):
-        self._orientation_angles.append(orientation_angle)
-        self.average_orientation_angle = sum(self._orientation_angles) / len(
-            self._orientation_angles
-        )
+    def add_orientation_angle(self, orientation_angle: float) -> None:
+        self.orientation_angles.append(orientation_angle)
+
+    @property
+    def average_orientation_angle(self) -> float:
+        return sum(self.orientation_angles) / len(self.orientation_angles)
 
 
 class Azimuth:
-    def __init__(self, point_from, point_to):
-        self.point_from: Type[Point] = point_from
-        self.point_to: Type[Point] = point_to
-        self.azimuth: float = 0
+    def __init__(self, point_from: TwoDimensionalPoint, point_to: TwoDimensionalPoint):
+        self.point_from = point_from
+        self.point_to = point_to
 
-        self.dx = point_to.x - point_from.x
-        self.dy = point_to.y - point_from.y
-        self.calculate_azimuth()
+    def __repr__(self) -> str:
+        return f"Azimuth_{self.point_from.identifier}_{self.point_to.identifier}({self.azimuth})"
 
-    def calculate_azimuth(self) -> float:
-        if self.dx > 0 > self.dy:
-            self.azimuth = math.degrees(math.atan(self.dx / self.dy)) + 180
-        elif self.dx < 0 > self.dy:
-            self.azimuth = math.degrees(math.atan(self.dx / self.dy)) + 180
-        elif self.dx < 0 < self.dy:
-            self.azimuth = math.degrees(math.atan(self.dx / self.dy)) + 360
-        elif self.dy == 0 < self.dx:
-            self.azimuth = 90
-        elif self.dy == 0 > self.dx:
-            self.azimuth = 270
-        elif self.dx == 0 > self.dy:
-            self.azimuth = 180
-        elif self.dx == 0 < self.dy:
-            self.azimuth = 0
-        elif self.dx > 0 < self.dy:
-            self.azimuth = math.degrees(math.atan(self.dx / self.dy))
-        return self.azimuth
+    @property
+    def azimuth(self) -> float:
+        dx = self.point_to.x - self.point_from.x
+        dy = self.point_to.y - self.point_from.y
+
+        if dx > 0 > dy:
+            azimuth = math.degrees(math.atan(dx / dy)) + 180
+        elif dx < 0 > dy:
+            azimuth = math.degrees(math.atan(dx / dy)) + 180
+        elif dx < 0 < dy:
+            azimuth = math.degrees(math.atan(dx / dy)) + 360
+        elif dy == 0 < dx:
+            azimuth = 90
+        elif dy == 0 > dx:
+            azimuth = 270
+        elif dx == 0 > dy:
+            azimuth = 180
+        elif dx == 0 < dy:
+            azimuth = 0
+        elif dx > 0 < dy:
+            azimuth = math.degrees(math.atan(dx / dy))
+
+        return azimuth
