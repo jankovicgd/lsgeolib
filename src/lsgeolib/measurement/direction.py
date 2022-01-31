@@ -8,7 +8,7 @@ Contains class for the direction measurement
 import math
 from typing import Tuple, Dict
 from .point import Point, TwoDimensionalPoint, PointType
-from .measurement import Measurement
+from .abc import Measurement
 from .distance import Distance
 from .utils import Azimuth
 

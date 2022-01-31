@@ -9,7 +9,7 @@ import math
 from typing import Tuple, Dict
 
 from .point import TwoDimensionalPoint, PointType, Point
-from .measurement import Measurement
+from .abc import Measurement
 
 
 class Distance(Measurement):

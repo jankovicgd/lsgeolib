@@ -7,7 +7,7 @@ height_difference.py
 from typing import Dict, Tuple
 from dataclasses import dataclass
 
-from .measurement import Measurement
+from .abc import Measurement
 from .point import OneDimensionalPoint, Point, PointType
 
 
@@ -16,8 +16,8 @@ class HeightDifference(Measurement):
     """Measurement where the difference in height is measured between two points
 
     Attributes:
-        point_from (HeightPoint): Point from which the measurement is taken.
-        point_to (HeightPoint): Point to which the measurement is taken.
+        point_from (OneDimensionalPoint): Point from which the measurement is taken.
+        point_to (OneDimensionalPoint): Point to which the measurement is taken.
         measured (float): Measured height difference
     """
 

@@ -8,8 +8,21 @@ Provides abstract interface for measurements to extend
 
 from abc import abstractmethod, ABC
 from typing import Dict, Tuple
+from enum import Enum, auto
 
-from lsgeolib.measurement.point import Point
+
+class PointType(Enum):
+    APPROXIMATE = auto()
+    FIXED = auto()
+
+
+class Point(ABC):
+    def __init__(self, identifier: str, point_type: PointType):
+        self.identifier = identifier
+        self.point_type = point_type
+
+    def __repr__(self) -> str:
+        return f"{self.point_type.name}_Point_{self.identifier}"
 
 
 class Measurement(ABC):

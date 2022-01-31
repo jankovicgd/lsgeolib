@@ -13,20 +13,18 @@ measurements:
     - from: R1
       to: R2
       value: 1.024
+      standard:
+        type: number_of_measurements
+        value: 10
     - from: R2
       to: R3
       value: 40.846
+      standard:
+        type: number_of_measurements
+        value: 21
     - from: R1
       to: R3
       value: 41.879
-standards:
-  number_of_measurements_between_points:
-    - from: R1
-      to: R2
-      number_of_measurements: 10
-    - from: R1
-      to: R2
-      number_of_measurements: 21
-    - from: R1
-      to: R2
-      number_of_measurements: 29
+      standard:
+        type: number_of_measurements
+        value: 29

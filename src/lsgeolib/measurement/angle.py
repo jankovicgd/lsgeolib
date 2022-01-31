@@ -1,7 +1,7 @@
 import math
 from typing import Tuple, Dict
 
-from .measurement import Measurement
+from .abc import Measurement
 from .point import Point, TwoDimensionalPoint, PointType
 from .utils import Azimuth
 from .distance import Distance
@@ -30,7 +30,6 @@ class Angle(Measurement):
     def measured(self, value: float) -> None:
         if value < 0:
             raise ValueError(f"Angle measured: {value}, cannot be negative")
-
         self._measured = value
 
     @property
