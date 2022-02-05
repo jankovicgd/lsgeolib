@@ -7,10 +7,12 @@ Contains class for the direction measurement
 
 import math
 from typing import Tuple, Dict
-from .point import Point, TwoDimensionalPoint, PointType
-from .abc import Measurement
+
+from .point import TwoDimensionalPoint
+from .abc import Point, Measurement, Standard, NullStandard
 from .distance import Distance
 from .utils import Azimuth
+from ..globals import PointType
 
 
 class Direction(Measurement):
@@ -28,11 +30,12 @@ class Direction(Measurement):
         point_from: TwoDimensionalPoint,
         point_to: TwoDimensionalPoint,
         measured: float,
+        standard: Standard = NullStandard(1.0),
     ):
         self.point_from = point_from
         self.point_to = point_to
         self.azimuth: Azimuth = Azimuth(point_from, point_to)
-        super().__init__(measured)
+        super().__init__(measured, standard)
 
     @property
     def measured(self) -> float:
@@ -104,3 +107,8 @@ class Direction(Measurement):
             coefficients[("z", self.point_to)] = z_coef
 
         return coefficients
+
+
+class AngularSecondsStandard(Standard):
+    def compute_weight_p(self, measurement: "Measurement") -> float:
+        return 1.0

@@ -7,8 +7,9 @@ height_difference.py
 from typing import Dict, Tuple
 from dataclasses import dataclass
 
-from .abc import Measurement
-from .point import OneDimensionalPoint, Point, PointType
+from .abc import Measurement, Standard, NullStandard, Point
+from .point import OneDimensionalPoint
+from ..globals import PointType
 
 
 @dataclass
@@ -26,11 +27,12 @@ class HeightDifference(Measurement):
         point_from: OneDimensionalPoint,
         point_to: OneDimensionalPoint,
         measured: float,
+        standard: Standard = NullStandard(1.0),
     ) -> None:
         self.point_from = point_from
         self.point_to = point_to
 
-        super().__init__(measured)
+        super().__init__(measured, standard)
 
     @property
     def approximate(self) -> float:
@@ -58,3 +60,8 @@ class HeightDifference(Measurement):
     @property
     def free_value(self) -> float:
         return self.approximate - self.measured
+
+
+class HeightDifferenceStandard(Standard):
+    def compute_weight_p(self, measurement: Measurement) -> float:
+        return float(1 / self.value)

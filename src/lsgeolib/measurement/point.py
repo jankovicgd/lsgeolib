@@ -6,7 +6,8 @@ Module that contains the Point classes
 
 """
 
-from .abc import Point, PointType
+from .abc import Point
+from ..globals import PointType
 
 
 class OneDimensionalPoint(Point):

@@ -1,20 +1,17 @@
-"""Module Docstring"""
-
-from abc import ABC, abstractmethod
 from typing import List
 
-from ..measurement.abc import Measurement
-from ..measurement.point import Point
+from .abc import AbstractGeodeticNetwork
+from ..measurement import Measurement, Point
 
 
-class GeodeticNetwork(ABC):
+class GeodeticNetwork(AbstractGeodeticNetwork):
     def __init__(self, measurements: List[Measurement], points: List[Point]):
         self.measurements = measurements
         self.points = points
 
-    @abstractmethod
-    def adjust(self):
-        ...
+    @classmethod
+    def from_yaml(cls, yaml: str) -> "GeodeticNetwork":
+        pass
 
 
 class TwoDimensionalGeodeticNetwork(GeodeticNetwork):

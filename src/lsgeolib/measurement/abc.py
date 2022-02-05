@@ -2,18 +2,14 @@
 measurement.py
 ===============
 
-Provides abstract interface for measurements to extend
+Provides abstract interface for measurements and standards to extend
 """
 
 
 from abc import abstractmethod, ABC
-from typing import Dict, Tuple
-from enum import Enum, auto
+from typing import Any, Dict, Tuple, overload
 
-
-class PointType(Enum):
-    APPROXIMATE = auto()
-    FIXED = auto()
+from ..globals import PointType
 
 
 class Point(ABC):
@@ -25,6 +21,32 @@ class Point(ABC):
         return f"{self.point_type.name}_Point_{self.identifier}"
 
 
+class Standard(ABC):
+    @overload
+    def __init__(self, value: int):
+        ...
+
+    @overload
+    def __init__(self, value: str):
+        ...
+
+    @overload
+    def __init__(self, value: float):
+        ...
+
+    def __init__(self, value: Any):
+        self.value = value
+
+    @abstractmethod
+    def compute_weight_p(self, measurement: "Measurement") -> float:
+        ...
+
+
+class NullStandard(Standard):
+    def compute_weight_p(self, measurement: "Measurement") -> float:
+        return float(self.value)
+
+
 class Measurement(ABC):
     """Abstract class for measurements
 
@@ -32,8 +54,9 @@ class Measurement(ABC):
         ABC ([type]): [description]
     """
 
-    def __init__(self, measured: float) -> None:
+    def __init__(self, measured: float, standard: Standard) -> None:
         self.measured = measured
+        self.standard = standard
 
     @property
     def measured(self) -> float:
@@ -46,19 +69,19 @@ class Measurement(ABC):
     @property
     @abstractmethod
     def approximate(self) -> float:
-        """raise NotImplementedError"""
+        ...
 
     @property
     @abstractmethod
     def adjusted(self) -> float:
-        """raise NotImplementedError"""
+        ...
 
     @property
     @abstractmethod
     def free_value(self) -> float:
-        """raise NotImplementedError"""
+        ...
 
     @property
     @abstractmethod
     def coefficients(self) -> Dict[Tuple[str, Point], float]:
-        """raise NotImplementedError"""
+        ...

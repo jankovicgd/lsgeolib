@@ -8,8 +8,9 @@ Contains class for distance measurement
 import math
 from typing import Tuple, Dict
 
-from .point import TwoDimensionalPoint, PointType, Point
-from .abc import Measurement
+from .point import TwoDimensionalPoint
+from .abc import Measurement, Point, Standard, NullStandard
+from ..globals import PointType
 
 
 class Distance(Measurement):
@@ -26,11 +27,12 @@ class Distance(Measurement):
         point_from: TwoDimensionalPoint,
         point_to: TwoDimensionalPoint,
         measured: float,
+        standard: Standard = NullStandard(1.0),
     ):
         self.point_from = point_from
         self.point_to = point_to
 
-        super().__init__(measured)
+        super().__init__(measured, standard)
 
     @property
     def measured(self) -> float:
@@ -73,3 +75,12 @@ class Distance(Measurement):
             coefficients[("b", self.point_to)] = b_to_from
 
         return coefficients
+
+
+class FixedVariableStandard(Standard):
+    def compute_weight_p(self, measurement: "Measurement") -> float:
+        values = self.value.split("+")
+        fixed_part = values[0]
+        variable_part = values[1]
+
+        return 1 / float(fixed_part + variable_part * measurement.measured / 1000)

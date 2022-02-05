@@ -1,10 +1,11 @@
 import math
 from typing import Tuple, Dict
 
-from .abc import Measurement
-from .point import Point, TwoDimensionalPoint, PointType
+from .abc import Measurement, Point, Standard, NullStandard
+from .point import TwoDimensionalPoint
 from .utils import Azimuth
 from .distance import Distance
+from ..globals import PointType
 
 
 class Angle(Measurement):
@@ -14,13 +15,14 @@ class Angle(Measurement):
         point_to: TwoDimensionalPoint,
         point_base: TwoDimensionalPoint,
         measured: float,
+        standard: Standard = NullStandard(1.0),
     ):
         self.point_from = point_from
         self.point_to = point_to
         self.point_base = point_base
         self.azimuth_base_from = Azimuth(point_base, point_from)
         self.azimuth_base_to = Azimuth(point_base, point_to)
-        super().__init__(measured)
+        super().__init__(measured, standard)
 
     @property
     def measured(self) -> float:

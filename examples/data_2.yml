@@ -14,17 +14,17 @@ measurements:
       to: R2
       value: 1.024
       standard:
-        type: number_of_measurements
+        type: height_difference
         value: 10
     - from: R2
       to: R3
       value: 40.846
       standard:
-        type: number_of_measurements
+        type: height_difference
         value: 21
     - from: R1
       to: R3
       value: 41.879
       standard:
-        type: number_of_measurements
+        type: height_difference
         value: 29
