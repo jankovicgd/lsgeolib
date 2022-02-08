@@ -1,30 +1,29 @@
 points:
-  R1:
+  - identifier: R1
     z: 58.133
     type: approximate
-  R2:
+  - identifier: R2
     z: 59.166
     type: approximate
-  R3:
+  - identifier: R3
     z: 100.012
     type: fixed
 measurements:
-  height_differences:
-    - from: R1
-      to: R2
-      value: 1.024
-      standard:
-        type: height_difference
-        value: 10
-    - from: R2
-      to: R3
-      value: 40.846
-      standard:
-        type: height_difference
-        value: 21
-    - from: R1
-      to: R3
-      value: 41.879
-      standard:
-        type: height_difference
-        value: 29
+  - from: R1
+    to: R2
+    value: 1.024
+    type: height_difference
+    standard:
+      value: 10
+  - from: R2
+    to: R3
+    value: 40.846
+    type: height_difference
+    standard:
+      value: 21
+  - from: R1
+    to: R3
+    value: 41.879
+    type: height_difference
+    standard:
+      value: 29
