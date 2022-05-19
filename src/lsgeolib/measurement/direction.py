@@ -6,7 +6,7 @@ Contains class for the direction measurement
 """
 
 import math
-from typing import Tuple, Dict
+from typing import Any, Tuple, Dict
 
 from .point import TwoDimensionalPoint
 from .abc import Point, Measurement, Standard, NullStandard
@@ -30,7 +30,9 @@ class Direction(Measurement):
         point_from: TwoDimensionalPoint,
         point_to: TwoDimensionalPoint,
         measured: float,
-        standard: Standard = NullStandard(1.0),
+        standard: Standard = NullStandard("1.0"),
+        *args: Any,
+        **kwargs: Any,
     ):
         self.point_from = point_from
         self.point_to = point_to

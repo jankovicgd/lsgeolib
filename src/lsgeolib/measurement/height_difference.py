@@ -4,7 +4,7 @@ height_difference.py
 =====================
 """
 
-from typing import Dict, Tuple
+from typing import Any, Dict, Tuple
 from dataclasses import dataclass
 
 from .abc import Measurement, Standard, NullStandard, Point
@@ -27,7 +27,9 @@ class HeightDifference(Measurement):
         point_from: OneDimensionalPoint,
         point_to: OneDimensionalPoint,
         measured: float,
-        standard: Standard = NullStandard(1.0),
+        standard: Standard = NullStandard("1.0"),
+        *args: Any,
+        **kwargs: Any,
     ) -> None:
         self.point_from = point_from
         self.point_to = point_to
@@ -64,4 +66,4 @@ class HeightDifference(Measurement):
 
 class HeightDifferenceStandard(Standard):
     def compute_weight_p(self, measurement: Measurement) -> float:
-        return float(1 / self.value)
+        return float(1 / float(self.value))

@@ -11,8 +11,10 @@ from ..globals import PointType
 
 
 class OneDimensionalPoint(Point):
-    def __init__(self, identifier: str, point_type: PointType, z: float):
-        super().__init__(identifier, point_type)
+    coords = 1
+
+    def __init__(self, identifier: str, type: PointType, z: float):
+        super().__init__(identifier, type)
         self.z = z
 
     def __repr__(self) -> str:
@@ -21,8 +23,10 @@ class OneDimensionalPoint(Point):
 
 
 class TwoDimensionalPoint(Point):
-    def __init__(self, identifier: str, point_type: PointType, x: float, y: float):
-        super().__init__(identifier, point_type)
+    coords = 2
+
+    def __init__(self, identifier: str, type: PointType, x: float, y: float):
+        super().__init__(identifier, type)
         self.x = x
         self.y = y
 

@@ -7,12 +7,14 @@ Provides abstract interface for measurements and standards to extend
 
 
 from abc import abstractmethod, ABC
-from typing import Any, Dict, Tuple, overload
+from typing import Any, Dict, Tuple
 
 from ..globals import PointType
 
 
 class Point(ABC):
+    coords: int
+
     def __init__(self, identifier: str, point_type: PointType):
         self.identifier = identifier
         self.point_type = point_type
@@ -22,19 +24,7 @@ class Point(ABC):
 
 
 class Standard(ABC):
-    @overload
-    def __init__(self, value: int):
-        ...
-
-    @overload
     def __init__(self, value: str):
-        ...
-
-    @overload
-    def __init__(self, value: float):
-        ...
-
-    def __init__(self, value: Any):
         self.value = value
 
     @abstractmethod
@@ -54,7 +44,9 @@ class Measurement(ABC):
         ABC ([type]): [description]
     """
 
-    def __init__(self, measured: float, standard: Standard) -> None:
+    def __init__(
+        self, measured: float, standard: Standard, *args: Any, **kwargs: Any
+    ) -> None:
         self.measured = measured
         self.standard = standard
 

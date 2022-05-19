@@ -9,21 +9,21 @@ points:
     z: 100.012
     type: fixed
 measurements:
-  - from: R1
-    to: R2
-    value: 1.024
+  - point_from: R1
+    point_to: R2
+    measured: 1.024
     type: height_difference
     standard:
       value: 10
-  - from: R2
-    to: R3
-    value: 40.846
+  - point_from: R2
+    point_to: R3
+    measured: 40.846
     type: height_difference
     standard:
       value: 21
-  - from: R1
-    to: R3
-    value: 41.879
+  - point_from: R1
+    point_to: R3
+    measured: 41.879
     type: height_difference
     standard:
       value: 29

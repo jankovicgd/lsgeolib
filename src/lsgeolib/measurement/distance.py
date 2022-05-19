@@ -6,7 +6,7 @@ Contains class for distance measurement
 """
 
 import math
-from typing import Tuple, Dict
+from typing import Any, Tuple, Dict
 
 from .point import TwoDimensionalPoint
 from .abc import Measurement, Point, Standard, NullStandard
@@ -27,7 +27,9 @@ class Distance(Measurement):
         point_from: TwoDimensionalPoint,
         point_to: TwoDimensionalPoint,
         measured: float,
-        standard: Standard = NullStandard(1.0),
+        standard: Standard = NullStandard("1.0"),
+        *args: Any,
+        **kwargs: Any,
     ):
         self.point_from = point_from
         self.point_to = point_to
@@ -80,7 +82,7 @@ class Distance(Measurement):
 class FixedVariableStandard(Standard):
     def compute_weight_p(self, measurement: "Measurement") -> float:
         values = self.value.split("+")
-        fixed_part = values[0]
-        variable_part = values[1]
+        fixed_part = float(values[0])
+        variable_part = float(values[1])
 
         return 1 / float(fixed_part + variable_part * measurement.measured / 1000)

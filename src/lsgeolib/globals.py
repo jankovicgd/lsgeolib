@@ -10,3 +10,10 @@ class StandardType(Enum):
     ANGULAR_SECONDS = auto()
     FIXED_VARIABLE_DISTANCE = auto()
     HEIGHT_DIFFERENCE = auto()
+
+
+class MeasurementType(Enum):
+    DIRECTION = auto()
+    ANGLE = auto()
+    DISTANCE = auto()
+    HEIGHT_DIFFERENCE = auto()

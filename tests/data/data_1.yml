@@ -1,0 +1,78 @@
+points:
+  - identifier: p1
+    x: 1593.816
+    y: 2047.144
+    type: FIXED
+  - identifier: p2
+    x: 2047.295
+    y: 2726.799
+    type: FIXED
+  - identifier: p3
+    x: 2500.726
+    y: 2047.113
+    type: FIXED
+  - identifier: p4
+    x: 2047.248
+    y: 1367.459
+    type: FIXED
+  - identifier: T0
+    x: 2047.271
+    y: 1367.459
+    type: APPROXIMATE
+measurements:
+  - type: DIRECTION
+    point_from: T0
+    point_to: p1
+    measured: 0.0
+    standard:
+      type: ANGULAR_SECONDS
+      value: 3
+  - type: DIRECTION
+    point_from: T0
+    point_to: p2
+    measured: 90.000833
+    standard:
+      type: ANGULAR_SECONDS
+      value: 3
+  - type: DIRECTION
+    point_from: T0
+    point_to: p3
+    measured: 179.9975
+    standard:
+      type: ANGULAR_SECONDS
+      value: 3
+  - type: DIRECTION
+    point_from: T0
+    point_to: p4
+    measured: 270.000833
+    standard:
+      type: ANGULAR_SECONDS
+      value: 3
+  - type: DISTANCE
+    point_from: T0
+    point_to: p1
+    measured: 453.446
+    standard:
+      type: FIXED_VARIABLE_DISTANCE
+      value: 5+5
+  - type: DISTANCE
+    point_from: T0
+    point_to: p2
+    measured: 679.682
+    standard:
+      type: FIXED_VARIABLE_DISTANCE
+      value: 5+5
+  - type: DISTANCE
+    point_from: T0
+    point_to: p3
+    measured: 453.452
+    standard:
+      type: FIXED_VARIABLE_DISTANCE
+      value: 5+5
+  - type: DISTANCE
+    point_from: T0
+    point_to: p4
+    measured: 679.642
+    standard:
+      type: FIXED_VARIABLE_DISTANCE
+      value: 5+5

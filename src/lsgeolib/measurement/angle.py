@@ -15,7 +15,7 @@ class Angle(Measurement):
         point_to: TwoDimensionalPoint,
         point_base: TwoDimensionalPoint,
         measured: float,
-        standard: Standard = NullStandard(1.0),
+        standard: Standard = NullStandard("1.0"),
     ):
         self.point_from = point_from
         self.point_to = point_to
